@@ -1,0 +1,10 @@
+SELECT 
+    CAR_ID,
+    -- 여러 기록 중 하나라도 '대여중'이 있으면 '대여중'을 최우선으로 반환
+    MAX(CASE 
+        WHEN '2022-10-16' BETWEEN START_DATE AND END_DATE THEN '대여중'
+        ELSE '대여 가능'
+    END) AS AVAILABILITY
+FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY
+GROUP BY CAR_ID
+ORDER BY CAR_ID DESC;
