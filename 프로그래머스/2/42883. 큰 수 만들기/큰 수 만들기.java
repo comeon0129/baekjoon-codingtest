@@ -2,31 +2,25 @@
 import java.util.*;
 class Solution {
     public String solution(String number, int k) {
-        Stack<Character> s = new Stack<>();
-        s.push(number.charAt(0));
-        for(int i=1; i<number.length(); i++){
-            while(k>0 && !s.isEmpty() && s.peek() < number.charAt(i)){
-                s.pop();
+        // StringBuilder를 스택처럼 사용!
+        StringBuilder sb = new StringBuilder();
+        
+        for(int i=0; i<number.length(); i++){
+            char c = number.charAt(i);
+            
+            while(k>0 && sb.length() > 0 && sb.charAt(sb.length()-1) < c) {
+                sb.deleteCharAt(sb.length()-1);
                 k--;
             }
-            s.push(number.charAt(i));
+            sb.append(c);
         }
         
         //남아 있는 경우 다 털기
-        while(k>0){
-            s.pop();
-            k--;
+        if(k>0){
+            sb.delete(sb.length()-k, sb.length());
         }
         
-        String temp = "";
-        while(!s.isEmpty()){
-            temp+=s.pop();
-        }
-        
-        String answer = "";
-        for (int i = temp.length() - 1; i >= 0; i--) {
-            answer += temp.charAt(i);
-        }
-        return answer;
+    
+        return sb.toString();
     }
 }
