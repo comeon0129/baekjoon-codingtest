@@ -11,15 +11,12 @@ class Solution {
         int start = 0;
         int end = people.length-1;
         int answer = 0;
-        while(start < end){
+        while(start <= end){
             if(people[start] + people[end] <= limit){
                 start++;
             }
             end--;
             answer++; 
-        }
-        if(start == end){
-            answer++;
         }
         
         return answer;
